@@ -1,20 +1,25 @@
 " ----------------------------------------------------------------------------
-"   .vimrc                                                                {{{
+"   .vimrc
 " ----------------------------------------------------------------------------
 
 " Allow vim to break compatibility with vi
 set nocompatible " This must be first, because it changes other options
 
-" }}}-------------------------------------------------------------------------
-"   Plugin                                                                {{{
+" ----------------------------------------------------------------------------
+"   Plugin
 " ----------------------------------------------------------------------------
 
-" Installing the Plug plugin manager, and all the plugins are included in this
-" other file.
-source $HOME/.vim/plug.vim
+" Install vim-plug if we don't already have it
+if empty(glob("$HOME/.vim/autoload/plug.vim"))
+    " Ensure all needed directories exist  (Thanks @kapadiamush)
+    execute 'mkdir -p $HOME/.vim/plugged'
+    execute 'mkdir -p $HOME/.vim/autoload'
+    " Download the actual plugin manager
+    execute '!curl -fLo $HOME/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+endif
 
-" }}}-------------------------------------------------------------------------
-"   Base Options                                                          {{{
+" ----------------------------------------------------------------------------
+"   Base Options
 " ----------------------------------------------------------------------------
 
 " Set the leader key to <space> instead of \ because it's easier to reach
@@ -32,11 +37,11 @@ set shortmess+=A                " No .swp warning
 set history=1000                 " Remember the last 200 :ex commands
 set secure                      " disable unsafe commands in local .vimrc files
 
-" }}}-------------------------------------------------------------------------
-"   Visual                                                                {{{
+" ----------------------------------------------------------------------------
+"   Visual
 " ----------------------------------------------------------------------------
 
-" Control Area (May be superseded by vim-airline)
+" Control Area
 set showcmd                 " Show (partial) command in the last line of the screen.
 set wildmenu                " Command completion
 set wildmode=list:longest   " List all matches and complete till longest common string
@@ -57,7 +62,7 @@ set cursorline              " Highlight the current line
 set number                  " Show line numbers
 set wrap                    " Soft wrap at the window width
 set linebreak               " Break the line on words
-set textwidth=0             " Disable inserting EOL when wrapping 
+set textwidth=0             " Disable inserting EOL when wrapping
 
 " show fold column, fold by markers
 set foldcolumn=0            " Don't show the folding gutter/column
@@ -87,27 +92,26 @@ set splitright              " Open new vertical splits to the right
 
 " Turn off auto insert linebreak on long lines
 " instead just wrap the line on display
-set formatoptions=1
+set formatoptions=
 
 " Colors
 syntax enable               " This has to come after colorcolumn in order to draw it.
-if &t_Co == 8 && $TERM !~# '^linux\|^Eterm'
-  set t_Co=16               " Allow color schemes to do bright colors without forcing bold on old terminal
-else 
-  set t_Co=256              " else enable 256 colors 
-endif
+set t_Co=256                " enable 256 colors
 
 " When completing, fill with the longest common string
 " Auto select the first option
 set completeopt=longest,menuone
 
-" Printing options
-"set printoptions=header:0,duplex:long,paper:letter,syntax:n
-" header:0                  Do not print a header
-" duplex:long (default)     Print on both sides (when possible), bind on long
-" syntax:n                  Do not use syntax highlighting.
+" Using netrw as project drawer
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 20
 
-" }}}-------------------------------------------------------------------------
+nmap <silent> <Leader>d :Vexplore<CR>
+
+" ----------------------------------------------------------------------------
 "   Style for terminal vim
 " ----------------------------------------------------------------------------
 
@@ -117,8 +121,8 @@ if &term =~ '^screen'
     set ttymouse=xterm2
 endif
 
-" }}}-------------------------------------------------------------------------
-"   Search                                                                {{{
+" ----------------------------------------------------------------------------
+"   Search
 " ----------------------------------------------------------------------------
 
 set incsearch               " Show search results as we type
@@ -133,26 +137,25 @@ vnoremap ? ?\v
 set ignorecase              " Ignore case when searching
 set smartcase               " Don't ignore case if we have a capital letter
 
-" }}}-------------------------------------------------------------------------
-"   Tabs                                                                  {{{
+" ----------------------------------------------------------------------------
+"   Tabs
 " ----------------------------------------------------------------------------
 
-set tabstop=2               " Show a tab as four spaces
-set shiftwidth=2            " Reindent is also four spaces
-set softtabstop=2           " When hit <tab> use four columns
+set tabstop=2               " Show a tab as two spaces
+set shiftwidth=2            " Reindent is also two spaces
+set softtabstop=2           " When hit <tab> use two columns
 set expandtab               " Create spaces when I type <tab>
 set shiftround              " Round indent to multiple of 'shiftwidth'.
 set autoindent              " Put my cursor in the right place when I start a new line
 filetype plugin indent on   " Rely on file plugins to handle indenting
 
-" }}}-------------------------------------------------------------------------
-"   Custom commands                                                       {{{
+" ----------------------------------------------------------------------------
+"   Custom commands
 " ----------------------------------------------------------------------------
 
 " Edit the vimrc file
 nmap <silent> <Leader>ev :vsplit $MYVIMRC<CR>
 nmap <silent> <Leader>ep :vsplit $HOME/.vim/plug.vim<CR>
-nmap <silent> <Leader>et :vsplit $HOME/.tmux.conf<CR>
 nmap <silent> <Leader>sv :source $MYVIMRC<CR>
 nmap <silent> <Leader>sp :source $HOME/.vim/plug.vim<CR>
 
@@ -161,6 +164,13 @@ nmap <silent> <Leader>w :update<CR>
 nmap <silent> <Leader>q :quit<CR>
 nmap <silent> <Leader>n :cnext<CR>
 nmap <silent> <Leader>p :cprevious<CR>
+
+" Non-hassle copy paste
+" Ctrl+c = Copy
+" Ctrl+v = Paste
+set pastetoggle=<F10>                   " Paste mode doesn't mess up your formatting
+inoremap <C-v> <F10><C-r>+<F10>
+vnoremap <C-c> "+y
 
 " Function to trim trailing white space
 " Make your own mappings
@@ -177,70 +187,24 @@ nmap <silent> <Leader>t :call StripTrailingWhitespaces()<CR>
 " Cd to the current file's directory
 nnoremap <Leader>. :cd %:p:h<CR>:pwd<CR>
 
-" Move current window to the far left using full height
-" nmap <silent> <Leader>h <C-w>H
-" Move current window to the far right using full height
-" nmap <silent> <Leader>l <C-w>L
-" Move current window to the top using full width
-" nmap <silent> <Leader>k <C-w>K
-" Move current window to the bottom using full width
-" nmap <silent> <Leader>j <C-w>J
-
-nmap <silent> <Leader>d :YcmCompleter GoToDefinition<CR>
-
 " Clear search highlights
 nnoremap <leader><space> :nohlsearch<cr>
 
 " Pretty Printing JSON using Python
 nnoremap <leader>pp :%!python -m json.tool<cr>
 
-" }}}-------------------------------------------------------------------------
-"   Configure My Plugins                                                  {{{
 " ----------------------------------------------------------------------------
-
-" ColorScheme
-set background=dark
-colorscheme PaperColor
-let g:lightline = { 'colorscheme': 'PaperColor' }
-
-" Find cmd with ripgrep
-" --column: Show column number
-" --line-number: Show line number
-" --no-heading: Do not show file headings in results
-" --fixed-strings: Search term as a literal string
-" --ignore-case: Case insensitive search
-" --no-ignore: Do not respect .gitignore, etc...
-" --hidden: Search hidden files and folders
-" --follow: Follow symlinks
-" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
-" --color: Search color options
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --ignore-case --no-ignore --hidden --follow --color=always --glob "!.git/*"'.shellescape(<f-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
-nnoremap <Leader>rg :Rg<Space>
-
-" Use ripgrep with vimgrep
-if executable('rg')
-  set grepprg=rg\ --no-heading\ --vimgrep
-  set grepformat=%f:%l:%c:%m
-endif
-
-" }}}-------------------------------------------------------------------------
-"   Custom filetypes                                                      {{{
+"   Custom filetypes
 " ----------------------------------------------------------------------------
 
 " Auto detect filetype
 autocmd BufRead,BufNewFile *.md,*.markdown set filetype=markdown
-autocmd BufRead,BufNewFile ~/dotfiles/ssh/config set filetype=sshconfig
 autocmd BufRead,BufNewFile *.git/config,.gitconfig,.gitmodules,gitconfig set ft=gitconfig
 autocmd BufNewFile,BufRead .eslintrc set filetype=javascript
 autocmd BufNewFile,BufRead *.es6 set filetype=javascript
 
-" }}}-------------------------------------------------------------------------
-"   Custom mappings                                                       {{{
+" ----------------------------------------------------------------------------
+"   Custom mappings
 " ----------------------------------------------------------------------------
 
 " When pasting, refill the default register with what you just pasted
@@ -272,29 +236,42 @@ vnoremap = =gv
 " Nobody ever uses "Ex" mode, and it's annoying to leave
 noremap Q <nop>
 
-" }}}-------------------------------------------------------------------------
-"   Undo, Backup and Swap file locations                                  {{{
+" ----------------------------------------------------------------------------
+"   Undo, Backup and Swap file locations
 " ----------------------------------------------------------------------------
 
 " Don't leave .swp files everywhere. Put them in a central place
+if empty(glob("$HOME/.vim/swapdir"))
+    execute 'mkdir -p $HOME/.vim/swapdir'
+endif
+if empty(glob("$HOME/.vim/backupdir"))
+    execute 'mkdir -p $HOME/.vim/backupdir'
+endif
+if empty(glob("$HOME/.vim/undodir"))
+    execute 'mkdir -p $HOME/.vim/undodir'
+endif
 set directory=$HOME/.vim/swapdir//
 set backupdir=$HOME/.vim/backupdir//
-if exists('+undodir')
-    set undodir=$HOME/.vim/undodir
-    set undofile
-endif
+set undodir=$HOME/.vim/undodir
+set undofile
 
-" }}}-------------------------------------------------------------------------
-"   If there is a per-machine local .vimrc, source it here at the end     {{{
+" ----------------------------------------------------------------------------
+"   If there is a per-machine local .vimrc, source it here at the end
 " ----------------------------------------------------------------------------
 
 if filereadable(glob("$HOME/.vimrc.local"))
     source $HOME/.vimrc.local
 endif
 
-" }}}-------------------------------------------------------------------------
-"                                                                         {{{
+" ----------------------------------------------------------------------------
+"   Load plugins and their configs
 " ----------------------------------------------------------------------------
 
+"  Plugins are configured in this other file
+source $HOME/.vim/plug.vim
+
+" ----------------------------------------------------------------------------
+"
+" ----------------------------------------------------------------------------
 set exrc
 set secure
