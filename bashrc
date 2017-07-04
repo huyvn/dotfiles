@@ -13,7 +13,21 @@ fi
 ###################
 #     Alias       #
 ###################
-alias rm="rm -i"
+alias rm='rm -i'
+alias mv='mv -i'
+alias cp='cp -i'
+alias ln='ln -i'
+
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+
+alias vi=vim
+alias svi='sudo vi'
+
+alias ping='ping -c 5'
+alias wget='wget -c'
 
 ###################
 #     Path        #
