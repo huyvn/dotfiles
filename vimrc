@@ -57,12 +57,16 @@ endif
 
 " Buffer Area Visuals
 set scrolloff=5             " Minimal number of screen lines to keep above and below the cursor.
-set visualbell              " Use a visual bell, don't beep!
 set cursorline              " Highlight the current line
 set number                  " Show line numbers
 set wrap                    " Soft wrap at the window width
 set linebreak               " Break the line on words
 set textwidth=0             " Disable inserting EOL when wrapping
+" No beep no flash
+set noerrorbells visualbell t_vb=
+if has('autocmd')
+  autocmd GUIEnter * set visualbell t_vb=
+endif
 
 " show fold column, fold by markers
 set foldcolumn=0            " Don't show the folding gutter/column
