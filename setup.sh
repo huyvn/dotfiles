@@ -2,11 +2,18 @@
 
 cd $HOME
 
-# Update packages
+# Sublime Text
+wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+sudo apt -y install apt-transport-https
+echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+
+# Vim 8
 sudo add-apt-repository ppa:jonathonf/vim
+
+# Update packages
 sudo apt -y update
 sudo apt -y upgrade
-sudo apt -y install vim vim-gtk3 git wget curl
+sudo apt -y install git wget curl vim vim-gtk3 sublime-text
 
 # setup Bash shell
 wget -O $HOME/.bashrc https://raw.githubusercontent.com/huyvn/dotfiles/master/bashrc
@@ -62,6 +69,18 @@ cargo install ripgrep
 # install Vim plugins
 vim +PlugInstall +qall
 
+###############
+# Sublime Text#
+###############
+
+# Install Package Control
+mkdir -p $HOME/.config/sublime-text-3/Installed\ Packages
+wget -O $HOME/.config/sublime-text-3/Installed\ Packages/Package\ Control.sublime-package https://packagecontrol.io/Package%20Control.sublime-package
+
+# get settings
+mkdir -p $HOME/.config/sublime-text-3/Packages/User
+wget -O $HOME/.config/sublime-text-3/Packages/User/Package\ Control.sublime-settings https://raw.githubusercontent.com/huyvn/dotfiles/master/sublimetext/Package%20Control.sublime-settings
+wget -O $HOME/.config/sublime-text-3/Packages/User/Preferences.sublime-settings https://raw.githubusercontent.com/huyvn/dotfiles/master/sublimetext/Preferences.sublime-settings
 
 ########
 # POST #
