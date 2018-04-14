@@ -8,12 +8,15 @@ sudo apt -y install apt-transport-https
 echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
 
 # Vim 8
-sudo add-apt-repository ppa:jonathonf/vim
+sudo add-apt-repository -y ppa:jonathonf/vim
+
+# Firefox Beta
+sudo add-apt-repository -y ppa:mozillateam/firefox-next
 
 # Update packages
 sudo apt -y update
 sudo apt -y upgrade
-sudo apt -y install git wget curl vim vim-gtk3 sublime-text
+sudo apt -y install git wget curl vim vim-gtk3 sublime-text firefox
 
 # setup Bash shell
 wget -O $HOME/.bashrc https://raw.githubusercontent.com/huyvn/dotfiles/master/bashrc
@@ -44,7 +47,7 @@ echo 'export PATH=$PATH:/usr/local/go/bin:/$GOBIN' >> $HOME/.profile
 rm -f go1.10.1.linux-amd64.tar.gz
 
 # Python
-echo 'export ML_PATH=$HOME/code/python/ml'
+echo 'export ML_PATH=$HOME/code/python/ml' >> $HOME/.profile
 
 #######
 # VIM #
