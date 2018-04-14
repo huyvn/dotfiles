@@ -1,0 +1,30 @@
+{
+	"auto_upgrade_ignore":
+	[
+		"GoSublime"
+	],
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"AlignTab",
+		"BracketHighlighter",
+		"DocBlockr",
+		"Git",
+		"GitGutter",
+		"GoSublime",
+		"MarkdownEditing",
+		"Package Control",
+		"SideBarEnhancements",
+		"SublimeCodeIntel",
+		"SublimeGit",
+		"SublimeLinter",
+		"SublimeLinter-json",
+		"SublimeLinter-pylint",
+		"Sublimerge 3",
+		"Terminal",
+		"Theme - Soda"
+	]
+}
