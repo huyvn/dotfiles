@@ -33,7 +33,7 @@ call plug#end()
 
 " ColorScheme
 set background=dark
-colorscheme PaperColor
+silent! colorscheme PaperColor
 
 " Supertab
 let g:SuperTabDefaultCompletionType = "context"
@@ -97,9 +97,14 @@ endfunction
 " --no-ignore: Do not respect .gitignore, etc...
 " --hidden: Search hidden files and folders
 " --follow: Follow symlinks
-" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+" --glob: Additional conditions for search
 " --color: Search color options
-command! -bang -nargs=* Rg call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
+let g:rg_command = '
+  \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
+  \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
+  \ -g "!{.git,node_modules,vendor}/*" '
+
+command! -bang -nargs=* Rg call fzf#vim#grep('g:rg_command '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
 nnoremap <Leader>rg :Rg<Space>
 
 " Use ripgrep with vimgrep
