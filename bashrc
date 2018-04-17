@@ -46,11 +46,11 @@ export PS1="[\\u@\\h \\W \\@]\\$ "
 HISTSIZE=5000
 HISTFILESIZE=10000
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
-export HISTTIMEFORMAT="%d/%m/%y %T"
+export HISTTIMEFORMAT="%d/%m/%y %T "
 
 # FZF fuzzy finder
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules,*.swp,dist,bin,pkg}/*" 2> /dev/null'
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules,*.swp,dist,bin,pkg,target}/*" 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_DEFAULT_OPTS='--bind J:down,K:up --reverse --ansi --multi'
 
