@@ -16,7 +16,7 @@ sudo add-apt-repository -y ppa:mozillateam/firefox-next
 # Update packages
 sudo apt -y update
 sudo apt -y upgrade
-sudo apt -y install git wget curl vim vim-gtk3 sublime-text firefox
+sudo apt -y install git wget curl vim vim-gtk3 sublime-text firefox tmux
 
 # setup Bash shell
 wget -O $HOME/.bashrc https://raw.githubusercontent.com/huyvn/dotfiles/master/bashrc
@@ -48,6 +48,13 @@ rm -f go1.10.1.linux-amd64.tar.gz
 
 # Python
 echo 'export ML_PATH=$HOME/code/python/ml' >> $HOME/.profile
+
+########
+# tmux #
+########
+
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+wget -O $HOME/.tmux.conf https://raw.githubusercontent.com/huyvn/dotfiles/master/tmux.conf
 
 #######
 # VIM #
@@ -89,5 +96,10 @@ wget -O $HOME/.config/sublime-text-3/Packages/User/Preferences.sublime-settings 
 # POST #
 ########
 
-source $HOME/.bashrc
-source $HOME/.profile
+echo "Please reboot your machine to complete installation."
+echo
+echo "Else please run below command before using shell."
+echo -e "\t source ~/.profile"
+echo -e "\t tmux source ~/.tmux.conf\n"
+
+echo -e "For Sublime Text, on first startup please allow time to install all packages. Press Ctrl+\` to view process."
