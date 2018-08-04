@@ -10,16 +10,13 @@ echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sou
 # Vim 8
 sudo add-apt-repository -y ppa:jonathonf/vim
 
-# Firefox Beta
-sudo add-apt-repository -y ppa:mozillateam/firefox-next
-
 # Update packages
 sudo apt -y update
 sudo apt -y upgrade
 sudo apt -y install git wget curl vim vim-gtk3 sublime-text firefox tmux
 
 # setup Bash shell
-wget -O $HOME/.bashrc https://raw.githubusercontent.com/huyvn/dotfiles/master/bashrc
+wget -O $HOME/.bashrc https://gitlab.com/huyvng/dotfiles/raw/master/bashrc
 
 # setup home
 mkdir -p $HOME/code/{go,python,js,rust}
@@ -54,7 +51,7 @@ echo 'export ML_PATH=$HOME/code/python/ml' >> $HOME/.profile
 ########
 
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-wget -O $HOME/.tmux.conf https://raw.githubusercontent.com/huyvn/dotfiles/master/tmux.conf
+wget -O $HOME/.tmux.conf https://gitlab.com/huyvng/dotfiles/raw/master/tmux.conf
 
 #######
 # VIM #
@@ -62,8 +59,8 @@ wget -O $HOME/.tmux.conf https://raw.githubusercontent.com/huyvn/dotfiles/master
 
 # get vim config
 mkdir -p $HOME/.vim
-wget -O $HOME/.vimrc https://raw.githubusercontent.com/huyvn/dotfiles/master/vimrc
-wget -O $HOME/.vim/plug.vim https://github.com/huyvn/dotfiles/raw/master/vim/plug.vim
+wget -O $HOME/.vimrc https://gitlab.com/huyvng/dotfiles/raw/master/vimrc
+wget -O $HOME/.vim/plug.vim https://gitlab.com/huyvng/dotfiles/raw/master/vim/plug.vim
 
 # setup VimPlug and Vim directory
 curl -fLo $HOME/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -89,8 +86,8 @@ wget -O $HOME/.config/sublime-text-3/Installed\ Packages/Package\ Control.sublim
 
 # get settings
 mkdir -p $HOME/.config/sublime-text-3/Packages/User
-wget -O $HOME/.config/sublime-text-3/Packages/User/Package\ Control.sublime-settings https://raw.githubusercontent.com/huyvn/dotfiles/master/sublimetext/Package%20Control.sublime-settings
-wget -O $HOME/.config/sublime-text-3/Packages/User/Preferences.sublime-settings https://raw.githubusercontent.com/huyvn/dotfiles/master/sublimetext/Preferences.sublime-settings
+wget -O $HOME/.config/sublime-text-3/Packages/User/Package\ Control.sublime-settings https://gitlab.com/huyvng/dotfiles/raw/master/sublimetext/Package%20Control.sublime-settings
+wget -O $HOME/.config/sublime-text-3/Packages/User/Preferences.sublime-settings https://gitlab.com/huyvng/dotfiles/raw/master/sublimetext/Preferences.sublime-settings
 
 ########
 # POST #
