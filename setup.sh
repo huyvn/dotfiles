@@ -10,10 +10,17 @@ echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sou
 # Vim 8
 sudo add-apt-repository -y ppa:jonathonf/vim
 
+# Timeshift
+sudo add-apt-repository -y ppa:teejee2008/ppa
+
+# BackInTime
+sudo add-apt-repository -y ppa:bit-team/stable
+
 # Update packages
 sudo apt -y update
 sudo apt -y upgrade
-sudo apt -y install git wget curl vim vim-gtk3 sublime-text firefox tmux
+sudo apt -y install git wget curl vim vim-gtk3 sublime-text firefox tmux gparted
+sudo apt -y install timeshift backintime-qt4 psensor
 
 # setup Bash shell
 wget -O $HOME/.bashrc https://gitlab.com/huyvng/dotfiles/raw/master/bashrc
@@ -37,14 +44,14 @@ rm -f $HOME/rustup.sh
 # Go
 wget https://dl.google.com/go/go1.10.1.linux-amd64.tar.gz
 sudo tar -C /usr/local -xzf go1.10.1.linux-amd64.tar.gz
-echo 'export GOPATH=$HOME/code/go' >> $HOME/.profile
-echo 'export GOBIN=$HOME/code/go/bin' >> $HOME/.profile
-echo 'export PATH=$PATH:/usr/local/go/bin:/$GOBIN' >> $HOME/.profile
+echo 'export GOPATH=$HOME/code/go' >> $HOME/.bashrc.local
+echo 'export GOBIN=$HOME/code/go/bin' >> $HOME/.bashrc.local
+echo 'export PATH=$PATH:/usr/local/go/bin:/$GOBIN' >> $HOME/.bashrc.local
 
 rm -f go1.10.1.linux-amd64.tar.gz
 
 # Python
-echo 'export ML_PATH=$HOME/code/python/ml' >> $HOME/.profile
+echo 'export ML_PATH=$HOME/code/python/ml' >> $HOME/.bashrc.local
 
 ########
 # tmux #
@@ -96,7 +103,7 @@ wget -O $HOME/.config/sublime-text-3/Packages/User/Preferences.sublime-settings 
 echo "Please reboot your machine to complete installation."
 echo
 echo "Else please run below command before using shell."
-echo -e "\t source ~/.profile"
+echo -e "\t source ~/.bashrc.local"
 echo -e "\t tmux source ~/.tmux.conf\n"
 
 echo -e "For Sublime Text, on first startup please allow time to install all packages. Press Ctrl+\` to view process."
