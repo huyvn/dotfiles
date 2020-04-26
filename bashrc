@@ -40,7 +40,7 @@ alias wget='wget -c'
 ###################
 
 # Prompt appearance
-export PS1="[\\u@\\h \\W \\@]\\$ "
+export PS1="\u@\h \[\e[1;91m\]\@\[\e[0m\] [\[\e[1;96m\]\w\[\e[0m\]] \\$ "
 
 # History
 HISTSIZE=5000
