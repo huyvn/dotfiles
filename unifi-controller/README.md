@@ -82,7 +82,7 @@ systemctl --user
 
 # generate the SystemD unit file
 mkdir -p ~/.config/systemd/user/
-podman generate systemd --restart-policy always --name unifi-controller > ~/.config/systemd/user/container-unifi-controller.services.d
+podman generate systemd --restart-policy always --name unifi-controller > ~/.config/systemd/user/container-unifi-controller.services
 
 # reload new config
 systemctl --user daemon-reload
@@ -95,6 +95,6 @@ Done!
 
 ## References
 
-[Arch Linux wiki - podman](https://wiki.archlinux.org/title/Podman)
-[Rootless podman containers under system accounts, managed and enabled at boot with systemd](https://blog.christophersmart.com/2021/02/20/rootless-podman-containers-under-system-accounts-managed-and-enabled-at-boot-with-systemd/)
-[Rootless Containers in 2020 on Arch Linux](https://vadosware.io/post/rootless-containers-in-2020-on-arch-linux/)
+* [Arch Linux wiki - podman](https://wiki.archlinux.org/title/Podman)
+* [Rootless podman containers under system accounts, managed and enabled at boot with systemd](https://blog.christophersmart.com/2021/02/20/rootless-podman-containers-under-system-accounts-managed-and-enabled-at-boot-with-systemd/)
+* [Rootless Containers in 2020 on Arch Linux](https://vadosware.io/post/rootless-containers-in-2020-on-arch-linux/)
