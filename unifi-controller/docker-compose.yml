@@ -5,8 +5,8 @@ services:
     image: lscr.io/linuxserver/unifi-controller
     container_name: unifi-controller
     environment:
-      - PUID=1001
-      - PGID=1002
+      - PUID=1001 #change to UID of service user 
+      - PGID=1002 #change to GID of service user
       - MEM_LIMIT=1024M #optional
       - MEM_STARTUP=1024M #optional
     volumes:
