@@ -93,6 +93,29 @@ systemctl --user enable --now container-unifi-controller.service
 
 Done!
 
+## Update container image
+
+Run as service user
+
+```bash
+# Pull latest image
+cd ~/unifi-controller/ && podman-compose pull
+
+# Stop systemd service, which will stop container
+systemctl --user enable --now container-unifi-controller.service
+
+# Remove container
+podman pod ps
+podman pod rm <pod ID>
+
+# Recreate container with latest image 
+podman-compose up -d
+
+# Not sure if necessary, but regenerate systemd unit file too
+podman generate systemd --restart-policy always --name unifi-controller > ~/.config/systemd/user/container-unifi-controller.services
+
+```
+
 ## References
 
 * [Arch Linux wiki - podman](https://wiki.archlinux.org/title/Podman)
