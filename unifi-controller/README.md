@@ -82,7 +82,7 @@ systemctl --user
 
 # generate the SystemD unit file
 mkdir -p ~/.config/systemd/user/
-podman generate systemd --restart-policy always --name unifi-controller > ~/.config/systemd/user/container-unifi-controller.services
+podman generate systemd --restart-policy always --name unifi-controller > ~/.config/systemd/user/container-unifi-controller.service
 
 # reload new config
 systemctl --user daemon-reload
@@ -102,17 +102,19 @@ Run as service user
 cd ~/unifi-controller/ && podman-compose pull
 
 # Stop systemd service, which will stop container
-systemctl --user enable --now container-unifi-controller.service
+systemctl --user stop container-unifi-controller.service
 
-# Remove container
+# Remove pod and container
 podman pod ps
 podman pod rm <pod ID>
+podman ps
+podman rm <container ID>
 
 # Recreate container with latest image 
 podman-compose up -d
 
 # Not sure if necessary, but regenerate systemd unit file too
-podman generate systemd --restart-policy always --name unifi-controller > ~/.config/systemd/user/container-unifi-controller.services
+podman generate systemd --restart-policy always --name unifi-controller > ~/.config/systemd/user/container-unifi-controller.service
 
 ```
 
